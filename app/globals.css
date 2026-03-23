@@ -196,6 +196,19 @@ html, body {
   flex-direction: column;
 }
 
+/* Auth page layout */
+.auth-outer {
+  display: flex;
+  min-height: 100svh;
+}
+
+.auth-form-panel {
+  width: 420px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  flex-direction: column;
+}
+
 /* Hamburger — hidden on desktop */
 .hamburger-btn {
   display: none;
@@ -306,7 +319,18 @@ html, body {
     display: none;
   }
 
+  .auth-outer {
+    flex-direction: column;
+    min-height: 100svh;
+    height: auto;
+  }
+
   .auth-form-panel {
     width: 100% !important;
+    max-width: 100% !important;
+    flex-shrink: unset !important;
+    padding: 24px 20px !important;
+    overflow-y: visible !important;
+    min-height: 100svh;
   }
 }
