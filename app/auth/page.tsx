@@ -1,5 +1,7 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 
 type AuthMode = 'login' | 'register'
 type Department = 'exploration' | 'research' | 'colonization' | 'defense' | 'async'
@@ -72,13 +74,18 @@ function BootSequence({ onComplete }: { onComplete: () => void }) {
 }
 
 export default function AuthPage() {
+  const router = useRouter()
+  const supabase = createClient()
+
   const [mode, setMode] = useState<AuthMode>('login')
   const [bootDone, setBootDone] = useState(false)
   const [department, setDepartment] = useState<Department | null>(null)
   const [registered, setRegistered] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [authError, setAuthError] = useState<string | null>(null)
 
   // Login form
-  const [loginId, setLoginId] = useState('')
+  const [loginEmail, setLoginEmail] = useState('')
   const [loginPw, setLoginPw] = useState('')
   const [loginErrors, setLoginErrors] = useState<Record<string, string>>({})
 
@@ -88,14 +95,35 @@ export default function AuthPage() {
   const [regPw, setRegPw] = useState('')
   const [regErrors, setRegErrors] = useState<Record<string, string>>({})
 
-  const handleLogin = () => {
+  const handleBootComplete = useCallback(() => setBootDone(true), [])
+
+  const handleLogin = async () => {
     const errs: Record<string, string> = {}
-    if (!loginId.trim()) errs.id = 'REQUIRED'
+    if (!loginEmail.trim()) errs.email = 'REQUIRED'
+    else if (!loginEmail.includes('@')) errs.email = 'INVALID FORMAT'
     if (!loginPw.trim()) errs.pw = 'REQUIRED'
     setLoginErrors(errs)
+    if (Object.keys(errs).length > 0) return
+
+    setLoading(true)
+    setAuthError(null)
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: loginEmail.trim(),
+      password: loginPw,
+    })
+
+    setLoading(false)
+
+    if (error) {
+      setAuthError(error.message.toUpperCase())
+    } else {
+      router.push('/')
+      router.refresh()
+    }
   }
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     const errs: Record<string, string> = {}
     if (!regUsername.trim()) errs.username = 'REQUIRED'
     if (!regEmail.trim()) errs.email = 'REQUIRED'
@@ -104,7 +132,29 @@ export default function AuthPage() {
     else if (regPw.length < 8) errs.pw = 'MIN 8 CHARACTERS'
     if (!department) errs.department = 'SELECT DEPARTMENT'
     setRegErrors(errs)
-    if (Object.keys(errs).length === 0) setRegistered(true)
+    if (Object.keys(errs).length > 0) return
+
+    setLoading(true)
+    setAuthError(null)
+
+    const { error } = await supabase.auth.signUp({
+      email: regEmail.trim(),
+      password: regPw,
+      options: {
+        data: {
+          username: regUsername.trim(),
+          department,
+        },
+      },
+    })
+
+    setLoading(false)
+
+    if (error) {
+      setAuthError(error.message.toUpperCase())
+    } else {
+      setRegistered(true)
+    }
   }
 
   const inputBase: React.CSSProperties = {
@@ -167,7 +217,7 @@ export default function AuthPage() {
           {(['login', 'register'] as AuthMode[]).map(m => (
             <button
               key={m}
-              onClick={() => { setMode(m); setRegistered(false) }}
+              onClick={() => { setMode(m); setRegistered(false); setAuthError(null) }}
               style={{
                 flex: 1,
                 background: mode === m ? 'var(--bg2)' : 'transparent',
@@ -186,11 +236,29 @@ export default function AuthPage() {
           ))}
         </div>
 
+        {/* Global auth error */}
+        {authError && (
+          <div
+            style={{
+              background: 'var(--red-bg)',
+              border: '1px solid var(--red-border)',
+              padding: '10px 14px',
+              marginBottom: '16px',
+              fontSize: '10px',
+              color: 'var(--red2)',
+              letterSpacing: '1px',
+              fontFamily: 'var(--mono)',
+            }}
+          >
+            &gt; ERROR — {authError}
+          </div>
+        )}
+
         {/* LOGIN */}
         {mode === 'login' && (
           <>
             {!bootDone ? (
-              <BootSequence onComplete={() => setBootDone(true)} />
+              <BootSequence onComplete={handleBootComplete} />
             ) : (
               <div
                 style={{
@@ -210,22 +278,22 @@ export default function AuthPage() {
               <div
                 style={{
                   fontSize: '9px',
-                  color: loginErrors.id ? 'var(--red2)' : 'var(--text3)',
+                  color: loginErrors.email ? 'var(--red2)' : 'var(--text3)',
                   letterSpacing: '2px',
                   marginBottom: '6px',
                   display: 'flex',
                   gap: '6px',
                 }}
               >
-                OPERATIVE ID
-                {loginErrors.id && <span style={{ color: 'var(--red2)' }}>— {loginErrors.id}</span>}
+                CONTACT ADDRESS
+                {loginErrors.email && <span style={{ color: 'var(--red2)' }}>— {loginErrors.email}</span>}
               </div>
               <input
-                type="text"
-                placeholder="MEG-EXP-0000"
-                value={loginId}
-                onChange={e => { setLoginId(e.target.value); setLoginErrors(p => { const n = {...p}; delete n.id; return n }) }}
-                style={inputErr(!!loginErrors.id)}
+                type="email"
+                placeholder="operative@meg.net"
+                value={loginEmail}
+                onChange={e => { setLoginEmail(e.target.value); setLoginErrors(p => { const n = {...p}; delete n.email; return n }) }}
+                style={inputErr(!!loginErrors.email)}
               />
             </div>
 
@@ -248,32 +316,35 @@ export default function AuthPage() {
                 placeholder="••••••••••••"
                 value={loginPw}
                 onChange={e => { setLoginPw(e.target.value); setLoginErrors(p => { const n = {...p}; delete n.pw; return n }) }}
+                onKeyDown={e => e.key === 'Enter' && handleLogin()}
                 style={inputErr(!!loginErrors.pw)}
               />
             </div>
 
             <button
               onClick={handleLogin}
+              disabled={loading}
               style={{
                 width: '100%',
-                background: 'var(--amber-glow2)',
+                background: loading ? 'transparent' : 'var(--amber-glow2)',
                 border: '1px solid var(--amber)',
                 color: 'var(--amber)',
                 fontFamily: 'var(--mono)',
                 fontSize: '12px',
                 padding: '12px',
-                cursor: 'pointer',
+                cursor: loading ? 'not-allowed' : 'pointer',
                 letterSpacing: '3px',
                 marginBottom: '14px',
+                opacity: loading ? 0.6 : 1,
               }}
             >
-              AUTHENTICATE
+              {loading ? '> VERIFYING...' : 'AUTHENTICATE'}
             </button>
 
             <div style={{ textAlign: 'center', fontSize: '10px', color: 'var(--text3)', letterSpacing: '1px' }}>
               New operative?{' '}
               <button
-                onClick={() => setMode('register')}
+                onClick={() => { setMode('register'); setAuthError(null) }}
                 style={{
                   background: 'none',
                   border: 'none',
@@ -316,10 +387,10 @@ export default function AuthPage() {
               >
                 <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--text)', lineHeight: 2 }}>
                   <div style={{ color: '#3aaa5a' }}>&gt; REGISTRATION RECEIVED.</div>
-                  <div>&gt; PENDING CLEARANCE ASSIGNMENT.</div>
-                  <div>&gt; ESTIMATED PROCESSING: 24–72 HOURS.</div>
+                  <div>&gt; CONFIRM YOUR EMAIL TO ACTIVATE ACCESS.</div>
+                  <div>&gt; CHECK YOUR CONTACT ADDRESS FOR VERIFICATION LINK.</div>
                   <div style={{ color: 'var(--text3)', marginTop: '6px' }}>
-                    &gt; You will be notified at the provided contact address when your clearance is assigned.
+                    &gt; You will be cleared upon confirmation.
                   </div>
                 </div>
               </div>
@@ -336,7 +407,7 @@ export default function AuthPage() {
                       gap: '6px',
                     }}
                   >
-                    USERNAME
+                    OPERATIVE NAME
                     {regErrors.username && <span style={{ color: 'var(--red2)' }}>— {regErrors.username}</span>}
                   </div>
                   <input
@@ -475,26 +546,28 @@ export default function AuthPage() {
 
                 <button
                   onClick={handleRegister}
+                  disabled={loading}
                   style={{
                     width: '100%',
-                    background: 'var(--amber-glow2)',
+                    background: loading ? 'transparent' : 'var(--amber-glow2)',
                     border: '1px solid var(--amber)',
                     color: 'var(--amber)',
                     fontFamily: 'var(--mono)',
                     fontSize: '12px',
                     padding: '12px',
-                    cursor: 'pointer',
+                    cursor: loading ? 'not-allowed' : 'pointer',
                     letterSpacing: '3px',
                     marginBottom: '12px',
+                    opacity: loading ? 0.6 : 1,
                   }}
                 >
-                  REQUEST CLEARANCE
+                  {loading ? '> TRANSMITTING...' : 'REQUEST CLEARANCE'}
                 </button>
 
                 <div style={{ textAlign: 'center', fontSize: '10px', color: 'var(--text3)', letterSpacing: '1px' }}>
                   Already registered?{' '}
                   <button
-                    onClick={() => setMode('login')}
+                    onClick={() => { setMode('login'); setAuthError(null) }}
                     style={{
                       background: 'none',
                       border: 'none',
