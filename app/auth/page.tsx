@@ -403,7 +403,7 @@ export default function AuthPage() {
 
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-          <div style={{
+          <div className="auth-logo-title" style={{
             fontFamily: 'var(--display)',
             fontSize: '44px',
             color: 'var(--amber2)',

@@ -200,6 +200,7 @@ html, body {
 .auth-outer {
   display: flex;
   min-height: 100svh;
+  overflow-x: hidden;
 }
 
 .auth-form-panel {
@@ -309,23 +310,26 @@ html, body {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Auth page: hide info panel on mobile */
+  /* Auth logo shrink */
+  .auth-logo-title {
+    font-size: 34px !important;
+    letter-spacing: 3px !important;
+  }
+
+  /* Auth page: hide info panel, form goes full width */
   .auth-info-panel {
-    display: none;
+    display: none !important;
   }
 
   .auth-outer {
     flex-direction: column;
-    min-height: 100svh;
-    height: auto;
   }
 
   .auth-form-panel {
-    width: 100% !important;
-    max-width: 100% !important;
-    flex-shrink: unset !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    flex-shrink: 0 !important;
     padding: 24px 20px !important;
-    overflow-y: visible !important;
-    min-height: 100svh;
+    box-sizing: border-box !important;
   }
 }
