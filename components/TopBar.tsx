@@ -1,14 +1,24 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import type { Operative } from '@/lib/types'
 import { clearanceLabel } from '@/lib/utils'
+import { createClient } from '@/lib/supabase/client'
 
 interface Props {
   operative: Operative
 }
 
 export default function TopBar({ operative }: Props) {
+  const router = useRouter()
   const [time, setTime] = useState('')
+
+  const handleLogout = async () => {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/auth')
+    router.refresh()
+  }
 
   useEffect(() => {
     const tick = () => {
@@ -97,6 +107,32 @@ export default function TopBar({ operative }: Props) {
         }}>
           {time}
         </span>
+
+        <button
+          onClick={handleLogout}
+          style={{
+            background: 'transparent',
+            border: '1px solid var(--border2)',
+            color: 'var(--text3)',
+            fontFamily: 'var(--mono)',
+            fontSize: '10px',
+            padding: '3px 10px',
+            cursor: 'pointer',
+            letterSpacing: '1px',
+          }}
+          onMouseEnter={e => {
+            const el = e.currentTarget as HTMLElement
+            el.style.borderColor = 'var(--red-border)'
+            el.style.color = 'var(--red2)'
+          }}
+          onMouseLeave={e => {
+            const el = e.currentTarget as HTMLElement
+            el.style.borderColor = 'var(--border2)'
+            el.style.color = 'var(--text3)'
+          }}
+        >
+          DISCONNECT
+        </button>
       </div>
     </header>
   )
