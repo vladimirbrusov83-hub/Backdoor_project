@@ -1,16 +1,11 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState } from 'react'
 import { useParams } from 'next/navigation'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
 import {
   mockEntities,
   mockEncounterReports,
   mockEntityDetails,
-  mockCurrentOperative,
-  mockMessages,
-  mockActivity,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
 
@@ -58,16 +53,14 @@ export default function EntityDetailPage() {
 
   if (!entity) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-        <TopBar operative={mockCurrentOperative} />
-        <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <Shell activePath="/entities">
+        
           <Sidebar activePath="/entities" />
           <main style={{ flex: 1, overflowY: 'auto', padding: '40px 20px' }}>
             <div style={{ color: 'var(--red2)', fontFamily: 'var(--mono)', fontSize: '12px', letterSpacing: '2px' }}>
               &gt; ENTITY NOT FOUND — ID: {id}
             </div>
           </main>
-          <RightPanel operative={mockCurrentOperative} messages={mockMessages} activity={mockActivity} />
         </div>
       </div>
     )
@@ -76,9 +69,8 @@ export default function EntityDetailPage() {
   const isRestricted = entity.status === 'restricted'
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/entities">
+      
         <Sidebar activePath="/entities" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Breadcrumb */}
@@ -587,12 +579,6 @@ export default function EntityDetailPage() {
             </div>
           </div>
         </main>
-        <RightPanel
-          operative={mockCurrentOperative}
-          messages={mockMessages}
-          activity={mockActivity}
-        />
-      </div>
-    </div>
+          </Shell>
   )
 }

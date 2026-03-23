@@ -1,13 +1,8 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState } from 'react'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
 import {
   mockReports,
-  mockCurrentOperative,
-  mockMessages,
-  mockActivity,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
 import type { DocType, DocStatus } from '@/lib/types'
@@ -65,9 +60,8 @@ export default function ReportsPage() {
   const flaggedCount = mockReports.filter(r => r.status === 'flagged').length
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/reports">
+      
         <Sidebar activePath="/reports" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Header */}
@@ -206,8 +200,6 @@ export default function ReportsPage() {
             </div>
           )}
         </main>
-        <RightPanel operative={mockCurrentOperative} messages={mockMessages} activity={mockActivity} />
-      </div>
-    </div>
+          </Shell>
   )
 }

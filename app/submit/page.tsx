@@ -1,9 +1,7 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState } from 'react'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
-import { mockCurrentOperative, mockMessages, mockActivity } from '@/lib/mock-data'
+
 
 type DocTypeKey = 'level' | 'entity' | 'tale' | 'object' | 'phenomenon' | 'group'
 
@@ -399,11 +397,8 @@ export default function SubmitPage() {
   }
 
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}
-    >
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/submit">
+      
         <Sidebar activePath="/submit" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Header */}
@@ -631,12 +626,6 @@ export default function SubmitPage() {
             </>
           )}
         </main>
-        <RightPanel
-          operative={mockCurrentOperative}
-          messages={mockMessages}
-          activity={mockActivity}
-        />
-      </div>
-    </div>
+          </Shell>
   )
 }

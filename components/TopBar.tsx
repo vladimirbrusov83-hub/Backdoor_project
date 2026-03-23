@@ -7,9 +7,10 @@ import { createClient } from '@/lib/supabase/client'
 
 interface Props {
   operative: Operative
+  onMenuToggle?: () => void
 }
 
-export default function TopBar({ operative }: Props) {
+export default function TopBar({ operative, onMenuToggle }: Props) {
   const router = useRouter()
   const [time, setTime] = useState('')
 
@@ -44,7 +45,11 @@ export default function TopBar({ operative }: Props) {
       zIndex: 10,
     }}>
       {/* Left */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button className="hamburger-btn" onClick={onMenuToggle} aria-label="Menu">
+          ☰
+        </button>
+
         <div style={{
           fontFamily: 'var(--display)',
           fontSize: '22px',
@@ -64,7 +69,7 @@ export default function TopBar({ operative }: Props) {
           </span>
         </div>
 
-        <div style={{
+        <div className="topbar-relay" style={{
           display: 'flex',
           alignItems: 'center',
           gap: '6px',
@@ -84,11 +89,11 @@ export default function TopBar({ operative }: Props) {
         fontSize: '11px',
         color: 'var(--text2)',
       }}>
-        <span style={{ color: 'var(--text3)' }}>
+        <span className="topbar-opid" style={{ color: 'var(--text3)' }}>
           {operative.operative_id}
         </span>
 
-        <span style={{
+        <span className="topbar-clearance" style={{
           background: 'rgba(200,151,42,0.08)',
           border: '1px solid var(--amber-dim)',
           color: 'var(--amber)',
@@ -99,7 +104,7 @@ export default function TopBar({ operative }: Props) {
           CLEARANCE {operative.clearance} — {clearanceLabel(operative.clearance)}
         </span>
 
-        <span style={{
+        <span className="topbar-time" style={{
           fontFamily: 'var(--mono)',
           color: 'var(--text3)',
           fontSize: '11px',

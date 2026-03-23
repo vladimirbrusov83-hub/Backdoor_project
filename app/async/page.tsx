@@ -1,13 +1,7 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState, useEffect } from 'react'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
-import {
-  mockCurrentOperative,
-  mockMessagesExtended,
-  mockActivity,
-} from '@/lib/mock-data'
+
 
 const BOOT_LINES = [
   '> BACK-NET — DIVISION ACCESS PORTAL',
@@ -38,9 +32,8 @@ export default function AsyncPage() {
   }, [])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/async">
+      
         <Sidebar activePath="/async" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '40px' }}>
 
@@ -117,8 +110,6 @@ export default function AsyncPage() {
             )}
           </div>
         </main>
-        <RightPanel operative={mockCurrentOperative} messages={mockMessagesExtended} activity={mockActivity} />
-      </div>
-    </div>
+          </Shell>
   )
 }

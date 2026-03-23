@@ -1,4 +1,5 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useEffect, useState } from 'react'
 
 const GLITCH_CHARS = '▓░█▄▀■□▪▫◆◇○●'
@@ -148,9 +149,6 @@ export default function NotFound() {
             REDIRECTING TO TERMINAL IN <span>{countdown}</span>
           </div>
           <a href="/" className="back-btn">← RETURN TO TERMINAL</a>
-          <div className="location">BACK-NET TERMINAL — M.E.G. PROMETHEUS LIBRARY</div>
-        </div>
-      </body>
-    </html>
+          <div className="location">BACK-NET TERMINAL — M.E.G. PROMETHEUS LIBRARY    </Shell>
   )
 }

@@ -146,3 +146,167 @@ html, body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ── Responsive layout ─────────────────────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Sidebar nav */
+.sidebar-nav {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  width: 220px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding: 16px 0;
+  transition: transform 0.22s ease;
+  z-index: 100;
+}
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 99;
+}
+
+/* Right panel — visual styles live in the component itself */
+.right-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hamburger — hidden on desktop */
+.hamburger-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text2);
+  cursor: pointer;
+  padding: 6px 8px;
+  font-size: 18px;
+  line-height: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive grids in TerminalContent */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.entity-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.featured-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 10px 14px;
+  gap: 8px;
+}
+
+/* ── Mobile ────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  body {
+    overflow: auto !important;
+    height: auto !important;
+  }
+
+  .app-shell {
+    height: 100%;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .app-body {
+    overflow: visible;
+  }
+
+  .main-content {
+    overflow-y: visible;
+    min-height: 0;
+  }
+
+  /* Sidebar becomes a slide-in drawer */
+  .sidebar-nav {
+    position: fixed;
+    top: 42px;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    width: 260px;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .sidebar-nav.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop.open {
+    display: block;
+  }
+
+  /* Hide right panel on mobile */
+  .right-panel {
+    display: none;
+  }
+
+  /* Show hamburger on mobile */
+  .hamburger-btn {
+    display: flex;
+  }
+
+  /* Hide topbar elements that don't fit */
+  .topbar-relay  { display: none; }
+  .topbar-opid   { display: none; }
+  .topbar-time   { display: none; }
+  .topbar-clearance { display: none; }
+
+  /* Responsive content grids */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .entity-grid-2col {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-meta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Auth page: hide info panel on mobile */
+  .auth-info-panel {
+    display: none;
+  }
+
+  .auth-form-panel {
+    width: 100% !important;
+  }
+}

@@ -1,13 +1,8 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useParams } from 'next/navigation'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
 import {
   mockObjects,
-  mockCurrentOperative,
-  mockMessages,
-  mockActivity,
 } from '@/lib/mock-data'
 
 const rarityColor: Record<string, string> = {
@@ -46,25 +41,22 @@ export default function ObjectDetailPage() {
 
   if (!obj) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-        <TopBar operative={mockCurrentOperative} />
-        <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <Shell activePath="/objects">
+        
           <Sidebar activePath="/objects" />
           <main style={{ flex: 1, overflowY: 'auto', padding: '40px 20px' }}>
             <div style={{ color: 'var(--red2)', fontFamily: 'var(--mono)', fontSize: '12px', letterSpacing: '2px' }}>
               &gt; OBJECT NOT FOUND — ID: {id}
             </div>
           </main>
-          <RightPanel operative={mockCurrentOperative} messages={mockMessages} activity={mockActivity} />
         </div>
       </div>
     )
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/objects">
+      
         <Sidebar activePath="/objects" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           <div style={{ fontSize: '10px', color: 'var(--text3)', letterSpacing: '1px', marginBottom: '14px' }}>
@@ -172,8 +164,6 @@ export default function ObjectDetailPage() {
             </div>
           </div>
         </main>
-        <RightPanel operative={mockCurrentOperative} messages={mockMessages} activity={mockActivity} />
-      </div>
-    </div>
+          </Shell>
   )
 }

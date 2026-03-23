@@ -1,13 +1,8 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState } from 'react'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
 import {
   mockEntities,
-  mockCurrentOperative,
-  mockMessages,
-  mockActivity,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
 import type { EntityDoc, ThreatLevel } from '@/lib/types'
@@ -180,11 +175,8 @@ export default function EntitiesPage() {
   })
 
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}
-    >
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/entities">
+      
         <Sidebar activePath="/entities" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Header */}
@@ -305,12 +297,6 @@ export default function EntitiesPage() {
             </div>
           )}
         </main>
-        <RightPanel
-          operative={mockCurrentOperative}
-          messages={mockMessages}
-          activity={mockActivity}
-        />
-      </div>
-    </div>
+          </Shell>
   )
 }

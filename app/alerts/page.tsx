@@ -1,13 +1,8 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState } from 'react'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
 import {
   mockAlertsExtended,
-  mockCurrentOperative,
-  mockMessagesExtended,
-  mockActivity,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
 import type { Alert } from '@/lib/types'
@@ -63,9 +58,8 @@ export default function AlertsPage() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/alerts">
+      
         <Sidebar activePath="/alerts" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
 
@@ -225,8 +219,6 @@ export default function AlertsPage() {
             </div>
           )}
         </main>
-        <RightPanel operative={mockCurrentOperative} messages={mockMessagesExtended} activity={mockActivity} />
-      </div>
-    </div>
+          </Shell>
   )
 }

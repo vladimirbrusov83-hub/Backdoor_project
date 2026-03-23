@@ -1,16 +1,11 @@
 'use client'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
+import Shell from '@/components/Shell'
 import {
   mockLevels,
   mockEntities,
   mockObjects,
   mockPhenomena,
   mockStats,
-  mockCurrentOperative,
-  mockMessages,
-  mockActivity,
   mockRecentItems,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
@@ -101,11 +96,8 @@ const mostVerified = [...mockRecentItems]
 
 export default function DatabasePage() {
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}
-    >
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/database">
+      
         <Sidebar activePath="/database" />
         <main style={{ flex: 1, overflowY: 'auto' }}>
           {/* Hero header */}
@@ -478,12 +470,6 @@ export default function DatabasePage() {
             </div>
           </div>
         </main>
-        <RightPanel
-          operative={mockCurrentOperative}
-          messages={mockMessages}
-          activity={mockActivity}
-        />
-      </div>
-    </div>
+          </Shell>
   )
 }

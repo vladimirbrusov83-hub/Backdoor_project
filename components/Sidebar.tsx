@@ -41,10 +41,11 @@ const opsNav: NavItem[] = [
   { label: 'My Dossier', href: '/dossier' },
 ]
 
-function NavSection({ label, items, active }: {
+function NavSection({ label, items, active, onClose }: {
   label: string
   items: NavItem[]
   active: string
+  onClose?: () => void
 }) {
   return (
     <div style={{ marginBottom: '20px' }}>
@@ -61,6 +62,7 @@ function NavSection({ label, items, active }: {
         <a
           key={item.href}
           href={item.href}
+          onClick={() => !item.locked && onClose?.()}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -126,19 +128,20 @@ function NavSection({ label, items, active }: {
   )
 }
 
-export default function Sidebar({ activePath = '/' }: { activePath?: string }) {
+export default function Sidebar({
+  activePath = '/',
+  isOpen = false,
+  onClose,
+}: {
+  activePath?: string
+  isOpen?: boolean
+  onClose?: () => void
+}) {
   return (
-    <nav style={{
-      background: 'var(--panel)',
-      borderRight: '1px solid var(--border)',
-      width: '220px',
-      flexShrink: 0,
-      overflowY: 'auto',
-      padding: '16px 0',
-    }}>
-      <NavSection label="Navigation" items={mainNav} active={activePath} />
-      <NavSection label="Divisions"  items={divisionNav} active={activePath} />
-      <NavSection label="Operations" items={opsNav} active={activePath} />
+    <nav className={`sidebar-nav${isOpen ? ' open' : ''}`}>
+      <NavSection label="Navigation" items={mainNav} active={activePath} onClose={onClose} />
+      <NavSection label="Divisions"  items={divisionNav} active={activePath} onClose={onClose} />
+      <NavSection label="Operations" items={opsNav} active={activePath} onClose={onClose} />
 
       {/* Version footer */}
       <div style={{

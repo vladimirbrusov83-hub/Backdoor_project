@@ -1,13 +1,8 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState } from 'react'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
 import {
   mockLevels,
-  mockCurrentOperative,
-  mockMessages,
-  mockActivity,
 } from '@/lib/mock-data'
 import { survivalLabel, survivalColor, entityCountLabel, timeAgo } from '@/lib/utils'
 import type { LevelDoc, SurvivalClass } from '@/lib/types'
@@ -220,11 +215,8 @@ export default function LevelsPage() {
   })
 
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}
-    >
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/levels">
+      
         <Sidebar activePath="/levels" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Header */}
@@ -346,12 +338,6 @@ export default function LevelsPage() {
             </div>
           )}
         </main>
-        <RightPanel
-          operative={mockCurrentOperative}
-          messages={mockMessages}
-          activity={mockActivity}
-        />
-      </div>
-    </div>
+          </Shell>
   )
 }

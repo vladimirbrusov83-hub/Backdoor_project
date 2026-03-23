@@ -1,14 +1,9 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useParams } from 'next/navigation'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
 import {
   mockGroups,
   mockReports,
-  mockCurrentOperative,
-  mockMessages,
-  mockActivity,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
 
@@ -35,25 +30,22 @@ export default function GroupDetailPage() {
 
   if (!group) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-        <TopBar operative={mockCurrentOperative} />
-        <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <Shell activePath="/groups">
+        
           <Sidebar activePath="/groups" />
           <main style={{ flex: 1, overflowY: 'auto', padding: '40px 20px' }}>
             <div style={{ color: 'var(--red2)', fontFamily: 'var(--mono)', fontSize: '12px', letterSpacing: '2px' }}>
               &gt; GROUP NOT FOUND — ID: {id}
             </div>
           </main>
-          <RightPanel operative={mockCurrentOperative} messages={mockMessages} activity={mockActivity} />
         </div>
       </div>
     )
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/groups">
+      
         <Sidebar activePath="/groups" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           <div style={{ fontSize: '10px', color: 'var(--text3)', letterSpacing: '1px', marginBottom: '14px' }}>
@@ -189,8 +181,6 @@ export default function GroupDetailPage() {
             </div>
           </div>
         </main>
-        <RightPanel operative={mockCurrentOperative} messages={mockMessages} activity={mockActivity} />
-      </div>
-    </div>
+          </Shell>
   )
 }

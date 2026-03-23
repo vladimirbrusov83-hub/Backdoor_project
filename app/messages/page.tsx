@@ -1,13 +1,7 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState } from 'react'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
-import {
-  mockCurrentOperative,
-  mockMessagesExtended,
-  mockActivity,
-} from '@/lib/mock-data'
+
 import type { Message } from '@/lib/types'
 
 const severityBar: Record<string, string> = {
@@ -43,9 +37,8 @@ export default function MessagesPage() {
   const sc = severityLabel[sev] ?? severityLabel.normal
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/messages">
+      
         <Sidebar activePath="/messages" />
         <main style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
 
@@ -205,8 +198,6 @@ export default function MessagesPage() {
             )}
           </div>
         </main>
-        <RightPanel operative={mockCurrentOperative} messages={mockMessagesExtended} activity={mockActivity} />
-      </div>
-    </div>
+          </Shell>
   )
 }

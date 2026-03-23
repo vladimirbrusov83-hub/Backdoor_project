@@ -386,13 +386,15 @@ export default function AuthPage() {
   })
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', minHeight: '100svh' }}>
 
       {/* ── Left: terminal info panel ── */}
-      <TerminalPanel />
+      <div className="auth-info-panel" style={{ flex: 1, minWidth: 0 }}>
+        <TerminalPanel />
+      </div>
 
       {/* ── Right: auth form ── */}
-      <div style={{
+      <div className="auth-form-panel" style={{
         width: '420px',
         flexShrink: 0,
         background: 'var(--bg)',

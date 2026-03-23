@@ -1,13 +1,8 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState } from 'react'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
 import {
   mockGroups,
-  mockCurrentOperative,
-  mockMessages,
-  mockActivity,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
 import type { GroupDoc } from '@/lib/types'
@@ -104,9 +99,8 @@ export default function GroupsPage() {
   })
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/groups">
+      
         <Sidebar activePath="/groups" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           <div style={{ marginBottom: '20px', borderBottom: '1px solid var(--border)', paddingBottom: '14px' }}>
@@ -160,8 +154,6 @@ export default function GroupsPage() {
             </div>
           )}
         </main>
-        <RightPanel operative={mockCurrentOperative} messages={mockMessages} activity={mockActivity} />
-      </div>
-    </div>
+          </Shell>
   )
 }

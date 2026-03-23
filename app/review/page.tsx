@@ -1,13 +1,8 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState } from 'react'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
 import {
   mockReviewItems,
-  mockCurrentOperative,
-  mockMessagesExtended,
-  mockActivity,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
 import type { ReviewItem } from '@/lib/types'
@@ -194,9 +189,8 @@ export default function ReviewPage() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/review">
+      
         <Sidebar activePath="/review" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
 
@@ -250,8 +244,6 @@ export default function ReviewPage() {
             </>
           )}
         </main>
-        <RightPanel operative={mockCurrentOperative} messages={mockMessagesExtended} activity={mockActivity} />
-      </div>
-    </div>
+          </Shell>
   )
 }

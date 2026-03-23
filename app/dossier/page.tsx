@@ -1,11 +1,6 @@
 'use client'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
+import Shell from '@/components/Shell'
 import {
-  mockCurrentOperative,
-  mockMessagesExtended,
-  mockActivity,
   mockReports,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
@@ -54,9 +49,8 @@ export default function DossierPage() {
   const clrColor = CLEARANCE_COLORS[op.clearance] ?? 'var(--text2)'
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={op} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/dossier">
+      
         <Sidebar activePath="/dossier" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
 
@@ -285,8 +279,6 @@ export default function DossierPage() {
             </div>
           </div>
         </main>
-        <RightPanel operative={op} messages={mockMessagesExtended} activity={mockActivity} />
-      </div>
-    </div>
+          </Shell>
   )
 }

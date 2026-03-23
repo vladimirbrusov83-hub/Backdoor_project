@@ -57,12 +57,7 @@ function StatsRow({ stats }: { stats: StatsData }) {
     { label: 'Async Files',       value: '???', sub: 'RESTRICTED', restricted: true },
   ]
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
-      gap: '8px',
-      marginBottom: '14px',
-    }}>
+    <div className="stats-grid">
       {cards.map(c => (
         <div key={c.label} style={{
           background: 'var(--bg3)',
@@ -362,12 +357,7 @@ function FeaturedLevel({ level }: { level: LevelDoc }) {
         {level.description}
       </div>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        padding: '10px 14px',
-        gap: '8px',
-      }}>
+      <div className="featured-meta-grid">
         {[
           ['Survival Class', survivalLabel(level.survival_class)],
           ['Entity Count', level.entity_count.toUpperCase()],
@@ -516,7 +506,7 @@ function EntityGrid({ entities }: { entities: EntityDoc[] }) {
         </a>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+      <div className="entity-grid-2col">
         {entities.map(entity => (
           <div key={entity.id} style={{
             background: 'var(--bg3)',

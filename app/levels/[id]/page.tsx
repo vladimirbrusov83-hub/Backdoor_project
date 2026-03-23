@@ -1,17 +1,12 @@
 'use client'
+import Shell from '@/components/Shell'
 import { useState } from 'react'
 import { useParams } from 'next/navigation'
-import TopBar from '@/components/TopBar'
-import Sidebar from '@/components/Sidebar'
-import RightPanel from '@/components/RightPanel'
 import {
   mockLevels,
   mockEntities,
   mockAnnotations,
   mockLevelDetails,
-  mockCurrentOperative,
-  mockMessages,
-  mockActivity,
 } from '@/lib/mock-data'
 import { survivalLabel, survivalColor, entityCountLabel, timeAgo } from '@/lib/utils'
 
@@ -65,16 +60,14 @@ export default function LevelDetailPage() {
 
   if (!level) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-        <TopBar operative={mockCurrentOperative} />
-        <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <Shell activePath="/levels">
+        
           <Sidebar activePath="/levels" />
           <main style={{ flex: 1, overflowY: 'auto', padding: '40px 20px' }}>
             <div style={{ color: 'var(--red2)', fontFamily: 'var(--mono)', fontSize: '12px', letterSpacing: '2px' }}>
               &gt; LEVEL NOT FOUND — ID: {id}
             </div>
           </main>
-          <RightPanel operative={mockCurrentOperative} messages={mockMessages} activity={mockActivity} />
         </div>
       </div>
     )
@@ -95,9 +88,8 @@ export default function LevelDetailPage() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <TopBar operative={mockCurrentOperative} />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <Shell activePath="/levels">
+      
         <Sidebar activePath="/levels" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Breadcrumb */}
@@ -814,12 +806,6 @@ export default function LevelDetailPage() {
             </div>
           </div>
         </main>
-        <RightPanel
-          operative={mockCurrentOperative}
-          messages={mockMessages}
-          activity={mockActivity}
-        />
-      </div>
-    </div>
+          </Shell>
   )
 }
