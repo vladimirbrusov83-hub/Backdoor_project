@@ -294,6 +294,14 @@ export default function AuthPage() {
   const router = useRouter()
   const supabase = createClient()
 
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
   const [mode, setMode] = useState<AuthMode>('login')
   const [bootDone, setBootDone] = useState(false)
   const [department, setDepartment] = useState<Department | null>(null)
@@ -386,28 +394,37 @@ export default function AuthPage() {
   })
 
   return (
-    <div className="auth-outer">
+    <div style={{
+      display: 'flex',
+      minHeight: '100svh',
+      flexDirection: isMobile ? 'column' : 'row',
+    }}>
 
-      {/* ── Left: terminal info panel ── */}
-      <div className="auth-info-panel" style={{ flex: 1, minWidth: 0 }}>
-        <TerminalPanel />
-      </div>
+      {/* ── Left: terminal info panel — hidden on mobile ── */}
+      {!isMobile && (
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <TerminalPanel />
+        </div>
+      )}
 
       {/* ── Right: auth form ── */}
-      <div className="auth-form-panel" style={{
+      <div style={{
+        width: isMobile ? '100%' : '420px',
+        flexShrink: 0,
         background: 'var(--bg)',
-        padding: '32px 28px',
+        padding: isMobile ? '24px 20px' : '32px 28px',
         display: 'flex',
         flexDirection: 'column',
+        boxSizing: 'border-box',
       }}>
 
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-          <div className="auth-logo-title" style={{
+          <div style={{
             fontFamily: 'var(--display)',
-            fontSize: '44px',
+            fontSize: isMobile ? '32px' : '44px',
             color: 'var(--amber2)',
-            letterSpacing: '6px',
+            letterSpacing: isMobile ? '3px' : '6px',
             lineHeight: 1,
             marginBottom: '4px',
           }}>
