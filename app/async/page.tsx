@@ -34,7 +34,6 @@ export default function AsyncPage() {
   return (
     <Shell activePath="/async">
       
-        <Sidebar activePath="/async" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '40px' }}>
 
           <div style={{ maxWidth: '640px', margin: '0 auto' }}>
@@ -77,7 +76,7 @@ export default function AsyncPage() {
                 <div style={{ fontSize: '12px', color: '#c07070', lineHeight: 1.9, marginBottom: '20px' }}>
                   The Async Division operates under Clearance Level 4 protocols.
                   Your current authorization ({' '}
-                  <span style={{ color: 'var(--amber)' }}>Level {mockCurrentOperative.clearance}</span>
+                  <span style={{ color: 'var(--amber)' }}>Level 2</span>
                   {' '}) is insufficient to access these files.
                 </div>
                 <div style={{ borderTop: '1px solid var(--red-border)', paddingTop: '16px', fontSize: '10px', color: '#804040', letterSpacing: '1px', lineHeight: 1.8 }}>

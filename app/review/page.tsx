@@ -3,6 +3,7 @@ import Shell from '@/components/Shell'
 import { useState } from 'react'
 import {
   mockReviewItems,
+  mockCurrentOperative,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
 import type { ReviewItem } from '@/lib/types'
@@ -191,7 +192,6 @@ export default function ReviewPage() {
   return (
     <Shell activePath="/review">
       
-        <Sidebar activePath="/review" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
 
           {/* Header */}

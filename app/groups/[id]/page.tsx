@@ -32,21 +32,18 @@ export default function GroupDetailPage() {
     return (
       <Shell activePath="/groups">
         
-          <Sidebar activePath="/groups" />
           <main style={{ flex: 1, overflowY: 'auto', padding: '40px 20px' }}>
             <div style={{ color: 'var(--red2)', fontFamily: 'var(--mono)', fontSize: '12px', letterSpacing: '2px' }}>
               &gt; GROUP NOT FOUND — ID: {id}
             </div>
           </main>
-        </div>
-      </div>
+        </Shell>
     )
   }
 
   return (
     <Shell activePath="/groups">
       
-        <Sidebar activePath="/groups" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           <div style={{ fontSize: '10px', color: 'var(--text3)', letterSpacing: '1px', marginBottom: '14px' }}>
             <a href="/groups" style={{ color: 'var(--amber-dim)', textDecoration: 'none' }}>GROUPS</a>

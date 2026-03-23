@@ -177,7 +177,6 @@ export default function EntitiesPage() {
   return (
     <Shell activePath="/entities">
       
-        <Sidebar activePath="/entities" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Header */}
           <div

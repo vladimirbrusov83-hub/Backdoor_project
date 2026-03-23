@@ -2,6 +2,8 @@
 import Shell from '@/components/Shell'
 import {
   mockReports,
+  mockCurrentOperative,
+  mockActivity,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
 
@@ -51,7 +53,6 @@ export default function DossierPage() {
   return (
     <Shell activePath="/dossier">
       
-        <Sidebar activePath="/dossier" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
 
           {/* Header */}

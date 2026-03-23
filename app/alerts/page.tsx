@@ -60,7 +60,6 @@ export default function AlertsPage() {
   return (
     <Shell activePath="/alerts">
       
-        <Sidebar activePath="/alerts" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
 
           {/* Header */}

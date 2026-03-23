@@ -62,7 +62,6 @@ export default function ReportsPage() {
   return (
     <Shell activePath="/reports">
       
-        <Sidebar activePath="/reports" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Header */}
           <div style={{ marginBottom: '20px', borderBottom: '1px solid var(--border)', paddingBottom: '14px' }}>

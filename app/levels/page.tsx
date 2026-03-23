@@ -217,7 +217,6 @@ export default function LevelsPage() {
   return (
     <Shell activePath="/levels">
       
-        <Sidebar activePath="/levels" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Header */}
           <div

@@ -43,21 +43,18 @@ export default function ObjectDetailPage() {
     return (
       <Shell activePath="/objects">
         
-          <Sidebar activePath="/objects" />
           <main style={{ flex: 1, overflowY: 'auto', padding: '40px 20px' }}>
             <div style={{ color: 'var(--red2)', fontFamily: 'var(--mono)', fontSize: '12px', letterSpacing: '2px' }}>
               &gt; OBJECT NOT FOUND — ID: {id}
             </div>
           </main>
-        </div>
-      </div>
+        </Shell>
     )
   }
 
   return (
     <Shell activePath="/objects">
       
-        <Sidebar activePath="/objects" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           <div style={{ fontSize: '10px', color: 'var(--text3)', letterSpacing: '1px', marginBottom: '14px' }}>
             <a href="/objects" style={{ color: 'var(--amber-dim)', textDecoration: 'none' }}>OBJECTS</a>

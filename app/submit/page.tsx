@@ -1,6 +1,7 @@
 'use client'
 import Shell from '@/components/Shell'
 import { useState } from 'react'
+import { mockCurrentOperative } from '@/lib/mock-data'
 
 
 type DocTypeKey = 'level' | 'entity' | 'tale' | 'object' | 'phenomenon' | 'group'
@@ -399,7 +400,6 @@ export default function SubmitPage() {
   return (
     <Shell activePath="/submit">
       
-        <Sidebar activePath="/submit" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Header */}
           <div

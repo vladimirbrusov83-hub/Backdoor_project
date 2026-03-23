@@ -114,7 +114,6 @@ export default function ObjectsPage() {
   return (
     <Shell activePath="/objects">
       
-        <Sidebar activePath="/objects" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           <div style={{ marginBottom: '20px', borderBottom: '1px solid var(--border)', paddingBottom: '14px' }}>
             <div style={{ fontSize: '9px', color: 'var(--text3)', letterSpacing: '3px', marginBottom: '5px' }}>

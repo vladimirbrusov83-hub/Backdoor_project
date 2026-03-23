@@ -6,6 +6,7 @@ import {
   mockEntities,
   mockEncounterReports,
   mockEntityDetails,
+  mockCurrentOperative,
 } from '@/lib/mock-data'
 import { timeAgo } from '@/lib/utils'
 
@@ -55,14 +56,12 @@ export default function EntityDetailPage() {
     return (
       <Shell activePath="/entities">
         
-          <Sidebar activePath="/entities" />
           <main style={{ flex: 1, overflowY: 'auto', padding: '40px 20px' }}>
             <div style={{ color: 'var(--red2)', fontFamily: 'var(--mono)', fontSize: '12px', letterSpacing: '2px' }}>
               &gt; ENTITY NOT FOUND — ID: {id}
             </div>
           </main>
-        </div>
-      </div>
+        </Shell>
     )
   }
 
@@ -71,7 +70,6 @@ export default function EntityDetailPage() {
   return (
     <Shell activePath="/entities">
       
-        <Sidebar activePath="/entities" />
         <main style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {/* Breadcrumb */}
           <div style={{ fontSize: '10px', color: 'var(--text3)', letterSpacing: '1px', marginBottom: '14px' }}>

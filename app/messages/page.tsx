@@ -1,7 +1,7 @@
 'use client'
 import Shell from '@/components/Shell'
 import { useState } from 'react'
-
+import { mockMessagesExtended } from '@/lib/mock-data'
 import type { Message } from '@/lib/types'
 
 const severityBar: Record<string, string> = {
@@ -39,7 +39,6 @@ export default function MessagesPage() {
   return (
     <Shell activePath="/messages">
       
-        <Sidebar activePath="/messages" />
         <main style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
 
           {/* Header */}

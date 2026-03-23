@@ -98,7 +98,6 @@ export default function DatabasePage() {
   return (
     <Shell activePath="/database">
       
-        <Sidebar activePath="/database" />
         <main style={{ flex: 1, overflowY: 'auto' }}>
           {/* Hero header */}
           <div
