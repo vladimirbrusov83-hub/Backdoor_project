@@ -1,9 +1,14 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
   title: 'THE THRESHOLD — BACK-NET Terminal',
   description: 'Backrooms Research Network — M.E.G. Prometheus Library',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -13,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="scanlines" style={{ overflow: 'hidden', height: '100vh' }}>
+      <body className="scanlines">
         {children}
       </body>
     </html>

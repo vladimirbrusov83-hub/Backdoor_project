@@ -246,11 +246,6 @@ html, body {
 
 /* ── Mobile ────────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  body {
-    overflow: auto !important;
-    height: auto !important;
-  }
-
   .app-shell {
     height: 100%;
     min-height: 100svh;
